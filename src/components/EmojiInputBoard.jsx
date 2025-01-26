@@ -82,13 +82,13 @@ const EmojiInputBoard = () => {
   return (
     <Box
       display="flex"
+      flexDirection={{ base: "column", md: "row" }} // Stack vertically on mobile, horizontally on desktop
       justifyContent="space-evenly"
       alignItems="stretch"
       width="100%"
-      height="100vh"
+      minHeight="100vh" // Ensure the container takes up at least the full viewport height
       bg={colorMode === "dark" ? "blackAlpha.100" : "whiteAlpha.100"}
-      p={8}
-      flexDirection={{ base: "column", md: "row" }}
+      p={{ base: 4, md: 8 }} // Adjust padding for mobile
     >
       {/* Input Card */}
       <Box
@@ -96,21 +96,21 @@ const EmojiInputBoard = () => {
         display="flex"
         justifyContent="center"
         alignItems="center"
-        mb={{ base: 4, md: 0 }}
+        mb={{ base: 4, md: 0 }} // Add margin-bottom on mobile
       >
-        <Box w="90%" h="90%">
+        <Box w={{ base: "100%", md: "90%" }} h={{ base: "auto", md: "90%" }}>
           <Box
             w="100%"
             h="100%"
             bg={colorMode === "dark" ? "whiteAlpha.200" : "whiteAlpha.100"}
             borderRadius="xl"
             boxShadow="xl"
-            p={6}
+            p={{ base: 4, md: 6 }} // Adjust padding for mobile
             display="flex"
             flexDirection="column"
             justifyContent="space-between"
           >
-            <VStack h={"100%"} align="stretch" spacing={4}>
+            <VStack h="100%" align="stretch" spacing={4}>
               {/* Input area */}
               <Textarea
                 value={inputValue}
@@ -136,7 +136,7 @@ const EmojiInputBoard = () => {
                   {genres.map((genre, index) => (
                     <Tag
                       key={index}
-                      size="lg"
+                      size={{ base: "md", md: "lg" }} // Adjust size for mobile
                       variant={
                         selectedOptions.includes(genre) ? "solid" : "outline"
                       }
@@ -159,18 +159,18 @@ const EmojiInputBoard = () => {
               />
 
               {/* Buttons */}
-              <HStack w={"100%"} justifyContent={"space-evenly"}>
+              <HStack w="100%" justifyContent="space-evenly">
                 <Button
-                  bgColor={"gray"}
+                  bgColor="gray"
                   colorScheme="blackAlpha"
                   onClick={handleGenerateStory}
                   isLoading={loading}
-                  w={"100%"}
+                  w="100%"
                 >
                   Generate Story
                 </Button>
                 {inputValue && (
-                  <Button colorScheme="red" w={"100%"} onClick={handleClear}>
+                  <Button colorScheme="red" w="100%" onClick={handleClear}>
                     Clear
                   </Button>
                 )}
@@ -185,7 +185,7 @@ const EmojiInputBoard = () => {
         justifyContent="center"
         display="flex"
         alignItems="center"
-        mb={{ base: 4, md: 0 }}
+        mb={{ base: 4, md: 0 }} // Add margin-bottom on mobile
       >
         {loading ? (
           <HStack spacing={2}>
@@ -213,7 +213,7 @@ const EmojiInputBoard = () => {
           </HStack>
         ) : (
           <Text
-            fontSize="4xl"
+            fontSize={{ base: "2xl", md: "4xl" }} // Adjust font size for mobile
             color={colorMode === "dark" ? "white" : "gray.400"}
             mx={4}
             animation={bounceAnimation}
@@ -224,8 +224,14 @@ const EmojiInputBoard = () => {
       </Box>
 
       {/* Output Card */}
-      <Box flex="1" display="flex" justifyContent="center" alignItems="center">
-        <Box w="90%" h="90%">
+      <Box
+        flex="1"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        mt={{ base: 4, md: 0 }} // Add margin-top on mobile
+      >
+        <Box w={{ base: "100%", md: "90%" }} h={{ base: "auto", md: "90%" }}>
           <EmojiStory storyData={storyData} loading={loading} error={error} />
         </Box>
       </Box>

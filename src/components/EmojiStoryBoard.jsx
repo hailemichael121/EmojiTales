@@ -68,23 +68,31 @@ const EmojiStory = ({ storyData, loading, error }) => {
     if (error === "Rate limit reached. Please try again later.") {
       return (
         <VStack spacing={4} align="center">
-          <Text fontSize="xl" fontWeight="bold" textAlign="center">
+          <Text
+            fontSize={{ base: "lg", md: "xl" }}
+            fontWeight="bold"
+            textAlign="center"
+          >
             🚀 Woah there, speed racer! 🚀
           </Text>
-          <Text fontSize="lg" textAlign="center">
+          <Text fontSize={{ base: "md", md: "lg" }} textAlign="center">
             You&apos;re generating stories faster than a caffeinated writer!
             🖋️☕
           </Text>
-          <Text fontSize="md" textAlign="center">
+          <Text fontSize={{ base: "sm", md: "md" }} textAlign="center">
             Take a breather and try again in a few minutes. ⏳
           </Text>
           <Image
             src="https://media.giphy.com/media/l0HlTy9x8FZo0XO1i/giphy.gif" // Funny GIF
             alt="Funny GIF"
-            boxSize="200px"
+            boxSize={{ base: "150px", md: "200px" }}
             borderRadius="md"
           />
-          <Text fontSize="sm" textAlign="center" color="gray.500">
+          <Text
+            fontSize={{ base: "xs", md: "sm" }}
+            textAlign="center"
+            color="gray.500"
+          >
             In the meantime, why not enjoy this dancing cat? 🐱💃
           </Text>
         </VStack>
@@ -183,7 +191,7 @@ const EmojiStory = ({ storyData, loading, error }) => {
       bg={colorMode === "dark" ? "whiteAlpha.200" : "whiteAlpha.100"}
       borderRadius="xl"
       boxShadow="xl"
-      p={6}
+      p={{ base: 4, md: 6 }} // Responsive padding
       display="flex"
       flexDirection="column"
       justifyContent="space-between"
@@ -191,7 +199,7 @@ const EmojiStory = ({ storyData, loading, error }) => {
     >
       {/* Story Title */}
       <Text
-        fontSize="2xl"
+        fontSize={{ base: "xl", md: "2xl" }} // Responsive font size
         fontWeight="bold"
         color={colorMode === "dark" ? "whitesmoke" : "blackAlpha.900"}
         mb="4"
@@ -206,13 +214,17 @@ const EmojiStory = ({ storyData, loading, error }) => {
         {loading ? (
           <VStack spacing={4}>
             <Spinner size="lg" />
-            <Text fontSize="lg" fontWeight="medium" textAlign="center">
+            <Text
+              fontSize={{ base: "md", md: "lg" }}
+              fontWeight="medium"
+              textAlign="center"
+            >
               Crafting your story... ✨
             </Text>
             <Image
               src="https://media.giphy.com/media/l0HlTy9x8FZo0XO1i/giphy.gif" // Funny GIF
               alt="Loading GIF"
-              boxSize="150px"
+              boxSize={{ base: "100px", md: "150px" }} // Responsive size
               borderRadius="md"
             />
           </VStack>
@@ -221,7 +233,7 @@ const EmojiStory = ({ storyData, loading, error }) => {
         ) : !isStoryGenerated ? (
           <VStack spacing={4}>
             <Text
-              fontSize="lg"
+              fontSize={{ base: "md", md: "lg" }} // Responsive font size
               fontWeight="medium"
               color={colorMode === "dark" ? "whitesmoke" : "blackAlpha.900"}
               textAlign="center"
@@ -229,13 +241,15 @@ const EmojiStory = ({ storyData, loading, error }) => {
               {storyBody}
             </Text>
             <Image
-              https:boxSize="200px" //media.giphy.com/media/3o7aTskHEUdgCQAXde/giphy.gif              alt="Welcome GIF"
+              src="https://media.giphy.com/media/3o7aTskHEUdgCQAXde/giphy.gif" // Welcome GIF
+              alt="Welcome GIF"
+              boxSize={{ base: "150px", md: "200px" }} // Responsive size
               borderRadius="md"
             />
           </VStack>
         ) : (
           <Text
-            fontSize="lg"
+            fontSize={{ base: "md", md: "lg" }} // Responsive font size
             fontWeight="medium"
             color={colorMode === "dark" ? "whitesmoke" : "blackAlpha.900"}
             textAlign="center"
@@ -250,7 +264,7 @@ const EmojiStory = ({ storyData, loading, error }) => {
         position="absolute"
         bottom="10px"
         right="10px"
-        fontSize="sm"
+        fontSize={{ base: "xs", md: "sm" }} // Responsive font size
         fontWeight="bold"
         color={colorMode === "dark" ? "gray.500" : "gray.700"}
         fontStyle="italic"
@@ -261,13 +275,19 @@ const EmojiStory = ({ storyData, loading, error }) => {
       {/* Buttons */}
       {!hideButtons && isStoryGenerated && (
         <HStack spacing={4} justifyContent="center" mt={4}>
-          <Button leftIcon={<FaShareAlt />} colorScheme="blue" onClick={onOpen}>
+          <Button
+            leftIcon={<FaShareAlt />}
+            colorScheme="blue"
+            onClick={onOpen}
+            size={{ base: "sm", md: "md" }} // Responsive button size
+          >
             Share
           </Button>
           <Button
             leftIcon={<FaDownload />}
             colorScheme="teal"
             onClick={handleDownload}
+            size={{ base: "sm", md: "md" }} // Responsive button size
           >
             Download
           </Button>
@@ -287,37 +307,46 @@ const EmojiStory = ({ storyData, loading, error }) => {
               <Button
                 leftIcon={<FaFacebookF />}
                 onClick={() => handleShare("facebook")}
+                size={{ base: "sm", md: "md" }} // Responsive button size
               >
                 Share on Facebook
               </Button>
               <Button
                 leftIcon={<FaTwitter />}
                 onClick={() => handleShare("twitter")}
+                size={{ base: "sm", md: "md" }} // Responsive button size
               >
                 Share on Twitter
               </Button>
               <Button
                 leftIcon={<FaLinkedinIn />}
                 onClick={() => handleShare("linkedin")}
+                size={{ base: "sm", md: "md" }} // Responsive button size
               >
                 Share on LinkedIn
-              </Button>{" "}
+              </Button>
               <Button
                 leftIcon={<FaTelegramPlane />}
                 onClick={() => handleShare("telegram")}
+                size={{ base: "sm", md: "md" }} // Responsive button size
               >
                 Share on Telegram
-              </Button>{" "}
+              </Button>
               <Button
                 leftIcon={<FaInstagram />}
                 onClick={() => handleShare("instagram")}
+                size={{ base: "sm", md: "md" }} // Responsive button size
               >
                 Share on Instagram
               </Button>
             </VStack>
           </ModalBody>
           <ModalFooter>
-            <Button onClick={onClose} colorScheme="blue">
+            <Button
+              onClick={onClose}
+              colorScheme="blue"
+              size={{ base: "sm", md: "md" }}
+            >
               Close
             </Button>
           </ModalFooter>

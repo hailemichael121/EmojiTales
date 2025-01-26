@@ -19,7 +19,8 @@ function App() {
         minH="100vh" // Full viewport height
         bgImage={`url(${pixelBg})`} // Use the imported image
         bgSize="20px 20px" // Size of the pixelated pattern
-        bgRepeat="repeat" // Repeat the pattern
+        bgRepeat="repeat"
+        overflow-y="scroll" // Repeat the pattern
       >
         <Header />
         <HeroImage scrollToEmojiInputBoard={scrollToEmojiInputBoard} />
