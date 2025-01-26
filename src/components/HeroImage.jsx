@@ -1,5 +1,6 @@
 import { Box, Image, Text, Button } from "@chakra-ui/react";
 import { keyframes } from "@emotion/react";
+import PropTypes from "prop-types";
 
 // Define a fade-in animation
 const fadeIn = keyframes`
@@ -7,7 +8,7 @@ const fadeIn = keyframes`
   to { opacity: 1; transform: translateY(0); }
 `;
 
-const HeroImage = () => {
+const HeroImage = ({ scrollToEmojiInputBoard }) => {
   const fadeInAnimation = `${fadeIn} 1s ease-in-out`;
 
   return (
@@ -95,11 +96,15 @@ const HeroImage = () => {
         transition="all 0.3s ease"
         animation={fadeInAnimation}
         zIndex="1"
+        onClick={scrollToEmojiInputBoard} // Scroll to EmojiInputBoard on click
       >
         Get Started 🚀
       </Button>
     </Box>
   );
+};
+HeroImage.propTypes = {
+  scrollToEmojiInputBoard: PropTypes.func.isRequired,
 };
 
 export default HeroImage;

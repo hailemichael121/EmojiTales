@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { Box } from "@chakra-ui/react";
 import Header from "./components/Header";
 import HeroImage from "./components/HeroImage";
@@ -6,6 +7,12 @@ import pixelBg from "/pixelBg.png"; // Import the image
 import Footer from "./components/Footer";
 
 function App() {
+  const emojiInputBoardRef = useRef(null);
+
+  const scrollToEmojiInputBoard = () => {
+    emojiInputBoardRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <>
       <Box
@@ -15,8 +22,10 @@ function App() {
         bgRepeat="repeat" // Repeat the pattern
       >
         <Header />
-        <HeroImage />
-        <EmojiInputBoard />
+        <HeroImage scrollToEmojiInputBoard={scrollToEmojiInputBoard} />
+        <Box ref={emojiInputBoardRef}>
+          <EmojiInputBoard />
+        </Box>
         <Footer />
       </Box>
     </>

@@ -1,11 +1,13 @@
 // src/components/Footer.jsx
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Text, useColorMode } from "@chakra-ui/react";
 
 const Footer = () => {
+  const { colorMode } = useColorMode();
+
   return (
     <Box
       as="footer"
-      mt={10}
+      mt={6}
       textAlign="center"
       py={4} // Padding on the y-axis
       bg="transparent" // Background color
@@ -13,7 +15,10 @@ const Footer = () => {
       left={0} // Align to the left
       right={0} // Align to the right
     >
-      <Text fontSize="sm" color="gray.600">
+      <Text
+        fontSize="md"
+        color={colorMode === "dark" ? "gray.300" : "gray.800"}
+      >
         Created with 🖤 by Yihun
       </Text>
     </Box>
