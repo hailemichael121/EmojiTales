@@ -1,5 +1,6 @@
-import { Flex, Heading, Text, Image, HStack } from "@chakra-ui/react";
+import { Flex, Heading, Image, HStack } from "@chakra-ui/react";
 import ToggleColorMode from "./ToggleColorMode";
+import AboutModal from "./AboutModal"; // Import the AboutModal component
 import { useColorMode } from "@chakra-ui/react";
 
 const Header = () => {
@@ -17,6 +18,7 @@ const Header = () => {
       top="0"
       zIndex="10"
     >
+      {/* Logo and App Name */}
       <Flex alignItems="center">
         <Image
           src={colorMode === "light" ? "/emotify.png" : "/emotifyDark.png"}
@@ -28,10 +30,13 @@ const Header = () => {
           EmojiTale
         </Heading>
       </Flex>
+
+      {/* About and Toggle Color Mode */}
       <HStack mr={"1%"} justifyContent={"Center"} alignItems={"center"}>
-        <Text mr={"4%"} fontSize="sm" fontWeight="bold" cursor="pointer">
-          About
-        </Text>
+        {/* About Text - Triggers the AboutModal */}
+        <AboutModal />
+
+        {/* Toggle Dark/Light Mode */}
         <ToggleColorMode />
       </HStack>
     </Flex>

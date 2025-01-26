@@ -2,7 +2,7 @@ import { Box } from "@chakra-ui/react";
 import Header from "./components/Header";
 import HeroImage from "./components/HeroImage";
 import EmojiInputBoard from "./components/EmojiInputBoard";
-import pixelBg from "../public/pixelBg.png"; // Import the image
+import pixelBg from "/pixelBg.png"; // Import the image
 import Footer from "./components/Footer";
 
 function App() {
