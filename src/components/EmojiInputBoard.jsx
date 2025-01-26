@@ -56,7 +56,7 @@ const EmojiInputBoard = () => {
   const handleGenerateStory = async () => {
     if (!inputValue) return;
 
-    const prompt = `${inputValue}. Theme: ${selectedOptions.join(", ")}`;
+    const prompt = `${inputValue}${selectedOptions.join(", ")}`;
     setFormattedPrompt(prompt);
 
     console.log(prompt); // Log the prompt to the console

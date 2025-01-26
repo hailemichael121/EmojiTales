@@ -136,20 +136,20 @@ const useOpenAIStoryGenerator = () => {
             {
               role: "user",
               content: `
-                Generate two short and creative fairy tales based on the following input:
-                "${prompt}"
+                  Generate two short and creative fairy tales based on the following input:
+                  "${prompt}"
 
-                Each story should include:
-                1. A title (short and catchy)
-                2. A body (3-4 sentences max)
+                  Each story should include:
+                  1. A title (short and catchy)
+                  2. A body (3-4 sentences max)
 
-                Format your response as:
-                Title 1: <Story Title>
-                Body 1: <Story Body>
+                  Format your response as:
+                  Title 1: <Story Title>
+                  Body 1: <Story Body>
 
-                Title 2: <Story Title>
-                Body 2: <Story Body>
-              `,
+                  Title 2: <Story Title>
+                  Body 2: <Story Body>
+                `,
             },
           ],
           max_tokens: 300,
@@ -183,24 +183,20 @@ const useOpenAIStoryGenerator = () => {
       throw err;
     }
   };
-
   const generateWithDictionary = (prompt) => {
     // Extract the first emoji from the prompt
-    const emoji = prompt.trim().split(" ")[0]; // Split by space and take the first part
+    const emoji = prompt.trim().match(/^[^\s\w]+/)?.[0]; // Match the first non-space, non-word character
     if (emojiStories[emoji]) {
-      console.log("Unknown emoji:", emoji);
-      console.log("Unknown emoji:", emojiStories[emoji]);
-
-      return {
-        title1: emojiStories[emoji].title1,
-        body1: emojiStories[emoji].body1,
-      };
+      console.log("Using dictionary for emoji:", emoji);
+      return emojiStories[emoji];
     }
+    console.log("Unknown emoji:", emojiStories["${emoji}"]);
     return {
       title1: "Unknown Emoji",
       body1: "We don't have a story for this emoji yet. Try another one! 😊",
     };
   };
+
   const generateStories = async (prompt) => {
     setLoading(true);
     setError("");
@@ -213,6 +209,7 @@ const useOpenAIStoryGenerator = () => {
       console.error("GPT Error:", gptError);
 
       const dictStory = generateWithDictionary(prompt);
+      console.log("Falling back to dictionary:", dictStory);
       setStoryData(dictStory);
     } finally {
       setLoading(false);
