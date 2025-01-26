@@ -71,9 +71,9 @@ const HeroImage = () => {
         animation={fadeInAnimation}
         textShadow="0 0 10px rgba(255, 255, 255, 0.3)" // Subtle text shadow
       >
-        Unleash your creativity and express your emotions through music, videos,
-        and more. Join us on this amazing journey where every moment is a
-        masterpiece waiting to be shared! 🎨 🎶
+        Discover the magic of turning emojis into tales with the power of GPT.
+        Dive into a world where every emoji tells a unique story, crafted just
+        for you. Join us and let your imagination run wild! 📖✨
       </Text>
 
       {/* "Get Started" Button */}

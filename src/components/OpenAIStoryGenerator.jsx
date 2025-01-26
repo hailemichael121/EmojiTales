@@ -176,6 +176,7 @@ const useOpenAIStoryGenerator = () => {
       return { title1, body1, title2, body2 };
     } catch (err) {
       if (err.response && err.response.status === 429 && retries > 0) {
+        console.log(`Rate limit hit. Retrying in ${backoff}ms...`);
         await delay(backoff);
         return generateWithGPT(prompt, retries - 1, backoff * 2);
       }
@@ -187,7 +188,13 @@ const useOpenAIStoryGenerator = () => {
     // Extract the first emoji from the prompt
     const emoji = prompt.trim().split(" ")[0]; // Split by space and take the first part
     if (emojiStories[emoji]) {
-      return emojiStories[emoji];
+      console.log("Unknown emoji:", emoji);
+      console.log("Unknown emoji:", emojiStories[emoji]);
+
+      return {
+        title1: emojiStories[emoji].title1,
+        body1: emojiStories[emoji].body1,
+      };
     }
     return {
       title1: "Unknown Emoji",
@@ -205,9 +212,8 @@ const useOpenAIStoryGenerator = () => {
     } catch (gptError) {
       console.error("GPT Error:", gptError);
 
-      // // Fallback to pre-defined dictionary if GPT fails
-      // const dictStory = generateWithDictionary(prompt);
-      // setStoryData(dictStory);
+      const dictStory = generateWithDictionary(prompt);
+      setStoryData(dictStory);
     } finally {
       setLoading(false);
     }
