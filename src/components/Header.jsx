@@ -19,11 +19,7 @@ const Header = () => {
     >
       <Flex alignItems="center">
         <Image
-          src={
-            colorMode === "light"
-              ? "public/emotify.png"
-              : "public/emotifyDark.png"
-          }
+          src={colorMode === "light" ? "/emotify.png" : "/emotifyDark.png"}
           alt="Emotify Logo"
           boxSize="40px"
           borderRadius="full"

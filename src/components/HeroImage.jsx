@@ -24,7 +24,7 @@ const HeroImage = () => {
     >
       {/* Background Image */}
       <Image
-        src="public/emotify_background.png" // Ensure the path is correct
+        src="/emotify_background.png" // Ensure the path is correct
         alt="Hero Image"
         w="100%"
         h="100%"
