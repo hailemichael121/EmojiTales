@@ -29,9 +29,9 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 import { toJpeg } from "html-to-image";
+import PropTypes from "prop-types";
 
 const IMGBB_API_KEY = "8cb1b74ce0b32cb78b1955dadbb07f53";
-import PropTypes from "prop-types";
 
 const EmojiStory = ({ storyData, loading, error }) => {
   const { colorMode } = useColorMode();
@@ -53,6 +53,13 @@ const EmojiStory = ({ storyData, loading, error }) => {
       setStoryTitle(storyData.title1);
       setStoryBody(storyData.body1);
       setIsStoryGenerated(true);
+    } else {
+      // Fallback to default message if no story is generated
+      setStoryTitle("🌟 Welcome to Emoji Storyland! 🌟");
+      setStoryBody(
+        "✨ Ready to create magic? Add some emojis and let your imagination run wild! ✨"
+      );
+      setIsStoryGenerated(false);
     }
   }, [storyData]);
 
@@ -197,9 +204,35 @@ const EmojiStory = ({ storyData, loading, error }) => {
       {/* Story Body */}
       <VStack spacing={4} flex="1" justifyContent="center">
         {loading ? (
-          <Spinner size="lg" />
+          <VStack spacing={4}>
+            <Spinner size="lg" />
+            <Text fontSize="lg" fontWeight="medium" textAlign="center">
+              Crafting your story... ✨
+            </Text>
+            <Image
+              src="https://media.giphy.com/media/l0HlTy9x8FZo0XO1i/giphy.gif" // Funny GIF
+              alt="Loading GIF"
+              boxSize="150px"
+              borderRadius="md"
+            />
+          </VStack>
         ) : error ? (
           getErrorMessage() // Display funny error message
+        ) : !isStoryGenerated ? (
+          <VStack spacing={4}>
+            <Text
+              fontSize="lg"
+              fontWeight="medium"
+              color={colorMode === "dark" ? "whitesmoke" : "blackAlpha.900"}
+              textAlign="center"
+            >
+              {storyBody}
+            </Text>
+            <Image
+              https:boxSize="200px" //media.giphy.com/media/3o7aTskHEUdgCQAXde/giphy.gif              alt="Welcome GIF"
+              borderRadius="md"
+            />
+          </VStack>
         ) : (
           <Text
             fontSize="lg"
@@ -293,6 +326,7 @@ const EmojiStory = ({ storyData, loading, error }) => {
     </Box>
   );
 };
+
 EmojiStory.propTypes = {
   storyData: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired,
