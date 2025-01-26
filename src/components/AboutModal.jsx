@@ -70,7 +70,7 @@ const AboutModal = () => {
                   Creator & Developer
                 </Text>
                 <HStack spacing={4} mt={4} justify="center">
-                  <Link href="https://github.com/your-github" isExternal>
+                  <Link href="https://github.com/hailemichael121" isExternal>
                     <Button
                       leftIcon={<FaGithub />}
                       colorScheme="gray"
@@ -81,7 +81,10 @@ const AboutModal = () => {
                       GitHub
                     </Button>
                   </Link>
-                  <Link href="https://linkedin.com/in/your-linkedin" isExternal>
+                  <Link
+                    href="https://www.linkedin.com/in/hailemichael121/"
+                    isExternal
+                  >
                     <Button
                       leftIcon={<FaLinkedin />}
                       colorScheme="gray"
@@ -92,7 +95,7 @@ const AboutModal = () => {
                       LinkedIn
                     </Button>
                   </Link>
-                  <Link href="https://twitter.com/your-twitter" isExternal>
+                  <Link href="Https://www.x.com/hailemichael121" isExternal>
                     <Button
                       leftIcon={<FaTwitter />}
                       colorScheme="gray"
