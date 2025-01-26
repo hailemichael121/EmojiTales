@@ -4,9 +4,8 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const OPENAI_API_KEY = process.env.REACT_APP_OPENAI_API_KEY; // Load from environment variables
-const HUGGING_FACE_API_KEY = process.env.REACT_APP_HUGGING_FACE_API_KEY; // Load from environment variables
-// Pre-defined emoji dictionary
+const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
+const HUGGING_FACE_API_KEY = import.meta.env.VITE_HUGGING_FACE_API_KEY;
 const emojiStories = {
   "😊": {
     title1: "The Happy Day",
