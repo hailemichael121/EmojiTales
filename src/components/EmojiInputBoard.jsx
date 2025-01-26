@@ -159,19 +159,22 @@ const EmojiInputBoard = () => {
               />
 
               {/* Buttons */}
-              <Button
-                bgColor={"gray"}
-                colorScheme="blackAlpha"
-                onClick={handleGenerateStory}
-                isLoading={loading}
-              >
-                Generate Story
-              </Button>
-              {inputValue && (
-                <Button colorScheme="red" onClick={handleClear}>
-                  Clear
+              <HStack w={"100%"} justifyContent={"space-evenly"}>
+                <Button
+                  bgColor={"gray"}
+                  colorScheme="blackAlpha"
+                  onClick={handleGenerateStory}
+                  isLoading={loading}
+                  w={"100%"}
+                >
+                  Generate Story
                 </Button>
-              )}
+                {inputValue && (
+                  <Button colorScheme="red" w={"100%"} onClick={handleClear}>
+                    Clear
+                  </Button>
+                )}
+              </HStack>
             </VStack>
           </Box>
         </Box>

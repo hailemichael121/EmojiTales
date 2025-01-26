@@ -21,8 +21,8 @@ const Header = () => {
         <Image
           src={
             colorMode === "light"
-              ? "src/assets/emotify.png"
-              : "src/assets/emotifyDark.png"
+              ? "public/emotify.png"
+              : "public/emotifyDark.png"
           }
           alt="Emotify Logo"
           boxSize="40px"

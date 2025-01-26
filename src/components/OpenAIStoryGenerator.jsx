@@ -3,22 +3,15 @@ import axios from "axios";
 
 const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
 const HUGGING_FACE_API_KEY = import.meta.env.VITE_HUGGING_FACE_API_KEY;
+
 const emojiStories = {
-  "😊": {
-    title1: "The Happy Day",
+  "😂": {
+    title1: "The Laughing Kingdom",
     body1:
-      "Once upon a time, there was a smiley face that brightened everyone's day. 🌞",
-    title2: "The Joyful Journey",
+      "In a land where laughter was the most precious treasure, a young jester named Jolly discovered a magical joke book. With each joke he told, the kingdom grew happier, and the skies filled with rainbows. 🌈",
+    title2: "The Giggle Spell",
     body2:
-      "A group of friends embarked on a journey filled with laughter and joy. 🚀",
-  },
-  "🚀": {
-    title1: "Journey to the Stars",
-    body1:
-      "A rocket soared through the sky, exploring new galaxies and meeting alien friends. 👽",
-    title2: "The Space Adventure",
-    body2:
-      "An astronaut discovered a new planet and made friends with the locals. 🌌",
+      "A mischievous fairy cast a spell that made everyone in the village laugh uncontrollably. The villagers soon realized that laughter was the key to solving their problems, and they lived happily ever after. 🧚‍♂️",
   },
   // Add more emojis and stories as needed
 };
@@ -27,8 +20,6 @@ const useOpenAIStoryGenerator = () => {
   const [storyData, setStoryData] = useState({
     title1: "",
     body1: "",
-    title2: "",
-    body2: "",
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -50,7 +41,7 @@ const useOpenAIStoryGenerator = () => {
             {
               role: "user",
               content: `
-                Generate two short and creative stories based on the following input:
+                Generate two short and creative fairy tales based on the following input:
                 "${prompt}"
 
                 Each story should include:
@@ -102,7 +93,7 @@ const useOpenAIStoryGenerator = () => {
     const response = await axios.post(
       "https://api-inference.huggingface.co/models/gpt2",
       {
-        inputs: `Generate two short and creative stories based on these emojis: ${prompt}`,
+        inputs: `Generate two short and creative fairy tales based on these emojis: ${prompt}`,
       },
       {
         headers: {
