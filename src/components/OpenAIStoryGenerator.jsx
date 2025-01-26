@@ -1,8 +1,5 @@
 import { useState } from "react";
 import axios from "axios";
-import dotenv from "dotenv";
-
-dotenv.config();
 
 const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
 const HUGGING_FACE_API_KEY = import.meta.env.VITE_HUGGING_FACE_API_KEY;
