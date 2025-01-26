@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   Box,
   Text,
@@ -12,40 +13,87 @@ import {
   ModalCloseButton,
   ModalBody,
   ModalFooter,
+  Spinner,
+  Alert,
+  AlertIcon,
+  Image,
   useDisclosure,
 } from "@chakra-ui/react";
 import {
   FaShareAlt,
   FaDownload,
   FaFacebookF,
-  FaTwitterSquare,
   FaLinkedinIn,
+  FaTelegramPlane,
+  FaInstagram,
+  FaTwitter,
 } from "react-icons/fa";
 import { toJpeg } from "html-to-image";
-import { useState } from "react";
 
 const IMGBB_API_KEY = "8cb1b74ce0b32cb78b1955dadbb07f53";
+import PropTypes from "prop-types";
 
-const EmojiStory = () => {
+const EmojiStory = ({ storyData, loading, error }) => {
   const { colorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [hideButtons, setHideButtons] = useState(false);
 
-  // State for title and body
-  const [storyTitle, setStoryTitle] = useState("🌟 Emoji Story");
-  const [storyBody, setStoryBody] = useState(
-    "Starting... Select some emojis and give it a shot!"
+  // States for title and body
+  const [storyTitle, setStoryTitle] = useState(
+    "🌟 Welcome to Emoji Storyland! 🌟"
   );
-  const [isStoryGenerated, setIsStoryGenerated] = useState(false); // State to track story generation
+  const [storyBody, setStoryBody] = useState(
+    "✨ Ready to create magic? Add some emojis and let your imagination run wild! ✨"
+  );
+  const [isStoryGenerated, setIsStoryGenerated] = useState(false);
 
-  // const emojiSequence = [
-  //   "✨ Once upon a time... 👑",
-  //   "There was a cheerful sun... ☀️",
-  //   "Who loved to dance in the rain... 🌧️💃",
-  //   "It created a magical rainbow... 🌈",
-  //   "And everyone lived happily ever after. 🌟",
-  // ];
+  // Update story title and body when storyData changes
+  useEffect(() => {
+    if (storyData.title1 && storyData.body1) {
+      setStoryTitle(storyData.title1);
+      setStoryBody(storyData.body1);
+      setIsStoryGenerated(true);
+    }
+  }, [storyData]);
 
+  // Handle rate limit error with a funny message
+  const getErrorMessage = () => {
+    if (error === "Rate limit reached. Please try again later.") {
+      return (
+        <VStack spacing={4} align="center">
+          <Text fontSize="xl" fontWeight="bold" textAlign="center">
+            🚀 Woah there, speed racer! 🚀
+          </Text>
+          <Text fontSize="lg" textAlign="center">
+            You&apos;re generating stories faster than a caffeinated writer!
+            🖋️☕
+          </Text>
+          <Text fontSize="md" textAlign="center">
+            Take a breather and try again in a few minutes. ⏳
+          </Text>
+          <Image
+            src="https://media.giphy.com/media/l0HlTy9x8FZo0XO1i/giphy.gif" // Funny GIF
+            alt="Funny GIF"
+            boxSize="200px"
+            borderRadius="md"
+          />
+          <Text fontSize="sm" textAlign="center" color="gray.500">
+            In the meantime, why not enjoy this dancing cat? 🐱💃
+          </Text>
+        </VStack>
+      );
+    } else if (error) {
+      return (
+        <Alert status="error" borderRadius="md">
+          <AlertIcon />
+          {error}
+        </Alert>
+      );
+    }
+    return null;
+  };
+
+  // Upload image to ImgBB
   const uploadToImgBB = async (imageBlob) => {
     const formData = new FormData();
     formData.append("image", imageBlob);
@@ -62,6 +110,7 @@ const EmojiStory = () => {
     return data?.data?.url || null;
   };
 
+  // Handle story download
   const handleDownload = () => {
     const cardElement = document.getElementById("emoji-story-card");
     if (cardElement) {
@@ -80,6 +129,7 @@ const EmojiStory = () => {
     }
   };
 
+  // Handle story sharing
   const handleShare = async (platform) => {
     const cardElement = document.getElementById("emoji-story-card");
     if (cardElement) {
@@ -107,23 +157,15 @@ const EmojiStory = () => {
             "Check out my Emoji Story! ✨ " + storyTitle
           )}&url=${uploadedImageUrl}`,
           linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${uploadedImageUrl}`,
+          telegram: `https://t.me/share/url?url=${uploadedImageUrl}&text=${encodeURIComponent(
+            "Check out my Emoji Story! ✨ " + storyTitle
+          )}`,
+          instagram: `https://www.instagram.com/?url=${uploadedImageUrl}`,
         };
 
         window.open(platformUrls[platform], "_blank");
       }, 0);
     }
-  };
-
-  // Simulate generating story title and body (you can replace this with GPT API call)
-  const handleGenerateStory = () => {
-    // Assuming GPT would generate these
-    const generatedTitle = "🌟 The Magical Adventure of Emojis";
-    const generatedBody =
-      "Once upon a time, emojis lived in a world full of emotions and adventure. 🌈✨";
-
-    setStoryTitle(generatedTitle);
-    setStoryBody(generatedBody);
-    setIsStoryGenerated(true); // Mark that the story has been generated
   };
 
   return (
@@ -154,14 +196,20 @@ const EmojiStory = () => {
 
       {/* Story Body */}
       <VStack spacing={4} flex="1" justifyContent="center">
-        <Text
-          fontSize="lg"
-          fontWeight="medium"
-          color={colorMode === "dark" ? "whitesmoke" : "blackAlpha.900"}
-          textAlign="center"
-        >
-          {storyBody}
-        </Text>
+        {loading ? (
+          <Spinner size="lg" />
+        ) : error ? (
+          getErrorMessage() // Display funny error message
+        ) : (
+          <Text
+            fontSize="lg"
+            fontWeight="medium"
+            color={colorMode === "dark" ? "whitesmoke" : "blackAlpha.900"}
+            textAlign="center"
+          >
+            {storyBody}
+          </Text>
+        )}
       </VStack>
 
       {/* Signature */}
@@ -178,11 +226,6 @@ const EmojiStory = () => {
       </Text>
 
       {/* Buttons */}
-      {isStoryGenerated && (
-        <Button colorScheme="teal" onClick={handleGenerateStory} mt={4}>
-          Generate Story
-        </Button>
-      )}
       {!hideButtons && isStoryGenerated && (
         <HStack spacing={4} justifyContent="center" mt={4}>
           <Button leftIcon={<FaShareAlt />} colorScheme="blue" onClick={onOpen}>
@@ -215,7 +258,7 @@ const EmojiStory = () => {
                 Share on Facebook
               </Button>
               <Button
-                leftIcon={<FaTwitterSquare />}
+                leftIcon={<FaTwitter />}
                 onClick={() => handleShare("twitter")}
               >
                 Share on Twitter
@@ -225,6 +268,18 @@ const EmojiStory = () => {
                 onClick={() => handleShare("linkedin")}
               >
                 Share on LinkedIn
+              </Button>{" "}
+              <Button
+                leftIcon={<FaTelegramPlane />}
+                onClick={() => handleShare("telegram")}
+              >
+                Share on Telegram
+              </Button>{" "}
+              <Button
+                leftIcon={<FaInstagram />}
+                onClick={() => handleShare("instagram")}
+              >
+                Share on Instagram
               </Button>
             </VStack>
           </ModalBody>
@@ -237,6 +292,11 @@ const EmojiStory = () => {
       </Modal>
     </Box>
   );
+};
+EmojiStory.propTypes = {
+  storyData: PropTypes.object.isRequired,
+  loading: PropTypes.bool.isRequired,
+  error: PropTypes.string,
 };
 
 export default EmojiStory;

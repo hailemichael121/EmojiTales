@@ -29,7 +29,7 @@ const Header = () => {
           borderRadius="full"
         />
         <Heading size="sm" pl={1}>
-          Emotify
+          EmojiTale
         </Heading>
       </Flex>
       <HStack mr={"1%"} justifyContent={"Center"} alignItems={"center"}>
