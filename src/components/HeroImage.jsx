@@ -1,6 +1,15 @@
 import { Box, Image, Text, Button } from "@chakra-ui/react";
+import { keyframes } from "@emotion/react";
+
+// Define a fade-in animation
+const fadeIn = keyframes`
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+`;
 
 const HeroImage = () => {
+  const fadeInAnimation = `${fadeIn} 1s ease-in-out`;
+
   return (
     <Box
       position="relative"
@@ -11,98 +20,84 @@ const HeroImage = () => {
       alignItems="center"
       flexDirection="column"
       textAlign="center"
+      overflow="hidden"
     >
-      {/* Image Container */}
-      <Box
-        position="relative"
+      {/* Background Image */}
+      <Image
+        src="src/assets/emotify_background.png" // Ensure the path is correct
+        alt="Hero Image"
         w="100%"
         h="100%"
-        overflow="hidden"
-        borderRadius="xl"
+        objectFit="cover"
+        position="absolute"
+        top="0"
+        left="0"
+        zIndex="-1" // Ensure the image stays behind the content
+      />
+
+      {/* Gradient Overlay */}
+      <Box
+        position="absolute"
+        top="0"
+        left="0"
+        w="100%"
+        h="100%"
+        bgGradient="linear(to-b, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8))" // Gradient overlay
+        zIndex="0"
+      />
+
+      {/* Main Heading Text */}
+      <Text
+        position="relative"
+        color="white"
+        fontSize={{ base: "4xl", md: "6xl" }} // Responsive font size
+        fontWeight="bold"
+        fontFamily="'Bungee', cursive"
+        zIndex="1"
+        animation={fadeInAnimation}
+        textShadow="0 0 10px rgba(255, 255, 255, 0.5)" // Subtle text shadow
       >
-        {/* Semi-transparent Overlay */}
-        <Box
-          position="absolute"
-          top="0"
-          left="0"
-          w="100%"
-          borderRadius="xxl"
-          h="90%"
-          bg="rgba(0, 0, 0, 0.5)" // Dark overlay to make the text stand out
-          zIndex="0"
-        />
+        🚀 EmojiTale! 🌟
+      </Text>
 
-        {/* Background Image */}
-        <Image
-          src="src/assets/emotify_background.png" // Ensure the path is correct
-          alt="Hero Image"
-          w="100%"
-          h="90%"
-          objectFit="cover"
-          borderRadius="xl"
-          zIndex="-1" // Make sure the image stays behind the text
-        />
+      {/* Descriptive Text */}
+      <Text
+        position="relative"
+        color="white"
+        fontSize={{ base: "lg", md: "xl" }} // Responsive font size
+        zIndex="1"
+        mt={4}
+        maxW={{ base: "90%", md: "60%" }}
+        animation={fadeInAnimation}
+        textShadow="0 0 10px rgba(255, 255, 255, 0.3)" // Subtle text shadow
+      >
+        Unleash your creativity and express your emotions through music, videos,
+        and more. Join us on this amazing journey where every moment is a
+        masterpiece waiting to be shared! 🎨 🎶
+      </Text>
 
-        {/* Main Heading Text */}
-        <Text
-          position="absolute"
-          top="25%"
-          left="50%"
-          transform="translateX(-50%)"
-          color="white"
-          fontSize="6xl"
-          fontWeight="bold"
-          fontFamily="'Bungee', cursive"
-          zIndex="1"
-          bg="rgba(0, 0, 0, 0.6)" // Transparent background to make text visible
-          borderRadius="lg"
-          p="4"
-        >
-          🚀 Emotify! 🌟
-        </Text>
-
-        {/* Descriptive Text */}
-        <Text
-          position="absolute"
-          top="50%"
-          left="50%"
-          transform="translateX(-50%)"
-          color="white"
-          fontSize="lg"
-          zIndex="1"
-          p="4"
-          bg="rgba(0, 0, 0, 0.6)"
-          borderRadius={"xl"} // Transparent background to make text visible
-          maxW="80%"
-        >
-          Unleash your creativity and express your emotions through music,
-          videos, and more. Join us on this amazing journey where every moment
-          is a masterpiece waiting to be shared! 🎨 🎶
-        </Text>
-
-        {/* "Get Started" Button */}
-        <Button
-          position="absolute"
-          left="40%"
-          bottom="20%"
-          colorScheme="gray"
-          size="lg"
-          border={"2px solid white"}
-          onClick={() => alert("Get Started!")}
-          borderRadius="full"
-          fontSize="lg"
-          pl={24}
-          pr={24}
-          _hover={{
-            bg: "gray.200",
-            transform: "scale(1.05)",
-            boxShadow: "0 0 15px rgba(0, 2, 25, 0.5)",
-          }}
-          zIndex="2"
-        >
-          Get Started 🚀
-        </Button>
-      </Box>
+      {/* "Get Started" Button */}
+      <Button
+        position="relative"
+        colorScheme="teal"
+        size="lg"
+        mt={8}
+        px={8}
+        py={6}
+        borderRadius="full"
+        fontSize="lg"
+        bgGradient="linear(to-r, teal.400, blue.500)" // Gradient background
+        _hover={{
+          bgGradient: "linear(to-r, teal.500, blue.600)",
+          transform: "scale(1.05)",
+          boxShadow: "0 0 20px rgba(0, 255, 255, 0.5)",
+        }}
+        transition="all 0.3s ease"
+        animation={fadeInAnimation}
+        zIndex="1"
+      >
+        Get Started 🚀
+      </Button>
     </Box>
   );
 };
